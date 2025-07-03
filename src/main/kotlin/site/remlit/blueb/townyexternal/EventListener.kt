@@ -19,4 +19,8 @@ class EventListener : Listener {
     fun resetTownCache() {}
     fun resetNationCache() {}
     fun resetResidentCache() {}
+
+    companion object {
+        fun register() = TownyExternal.instance.server.pluginManager.registerEvents(EventListener(), TownyExternal.instance)
+    }
 }

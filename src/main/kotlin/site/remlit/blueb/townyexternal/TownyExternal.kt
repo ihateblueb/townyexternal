@@ -8,6 +8,9 @@ class TownyExternal : JavaPlugin() {
         instance = this
 
         config.addDefault("http-port", 8064)
+        config.addDefault("http-address", "127.0.0.1")
+        config.addDefault("require-credential", false)
+        config.addDefault("cache", "h2")
         config.options().copyDefaults(true)
         saveConfig()
 
@@ -16,10 +19,15 @@ class TownyExternal : JavaPlugin() {
         * config cache
         * config cache reset events
         * config cache storage type (redis, h2, postgres)
-        * on cache reset also repopulate?
+        *
+        * respect config for host & add auth
         *
         * register event listener
+        *
+        * bstats metrics on cache type and require auth type
         * */
+
+        EventListener.register()
 
         httpServer = thread(name = "TownyExternal") {
             main(instance.config.get("http-port")?.toString()?.toInt() ?: 8064)
