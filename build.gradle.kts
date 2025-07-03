@@ -21,20 +21,20 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core:3.2.0")
-    implementation("io.ktor:ktor-server-host-common:3.2.0")
-    implementation("io.ktor:ktor-server-status-pages:3.2.0")
-    implementation("io.ktor:ktor-server-core:3.2.0")
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.1.0")
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
+    implementation("io.ktor:ktor-server-core:3.2.0")
     implementation("io.ktor:ktor-server-core-jvm:3.2.0")
+    implementation("io.ktor:ktor-server-host-common:3.2.0")
     implementation("io.ktor:ktor-server-netty:3.2.0")
 
+    implementation("io.ktor:ktor-server-content-negotiation:3.2.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:3.2.0")
+    implementation("io.ktor:ktor-server-status-pages:3.2.0")
     implementation("io.ktor:ktor-server-status-pages-jvm:3.2.0")
 }
 
