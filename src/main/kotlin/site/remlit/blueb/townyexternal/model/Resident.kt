@@ -12,6 +12,6 @@ data class Resident(
 
     val lastOnline: Long,
     val registered: Long,
-    //val town: Town? = null,
+    //val town: Town? = null, todo: think about recursive loop. static mini()?
     val joinedTownAt: Long? = null,
 )
