@@ -11,6 +11,16 @@ class TownyExternal : JavaPlugin() {
         config.options().copyDefaults(true)
         saveConfig()
 
+        /*
+        * todo:
+        * config cache
+        * config cache reset events
+        * config cache storage type (redis, h2, postgres)
+        * on cache reset also repopulate?
+        *
+        * register event listener
+        * */
+
         httpServer = thread(name = "TownyExternal") {
             main(instance.config.get("http-port")?.toString()?.toInt() ?: 8064)
         }

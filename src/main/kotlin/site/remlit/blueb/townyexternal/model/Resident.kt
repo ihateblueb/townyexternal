@@ -1,10 +1,11 @@
 package site.remlit.blueb.townyexternal.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 @Serializable
 data class Resident(
-    val uuid: String,
+    val uuid: UUID,
 
     val name: String,
     val title: String? = null,
@@ -12,6 +13,34 @@ data class Resident(
 
     val lastOnline: Long,
     val registered: Long,
-    //val town: Town? = null, todo: think about recursive loop. static mini()?
+    var town: Town? = null,
     val joinedTownAt: Long? = null,
-)
+) {
+    fun mini() = mini(this)
+    companion object {
+        fun fromTowny(resident: com.palmergames.bukkit.towny.`object`.Resident): Resident {
+            return Resident(
+                resident.uuid,
+                resident.name,
+                resident.title,
+                resident.surname,
+                resident.lastOnline,
+                resident.registered,
+                Town.fromTowny(resident.town),
+                resident.joinedTownAt
+            )
+        }
+
+        fun mini(resident: Resident): MiniResident {
+            return MiniResident(
+                resident.uuid,
+                resident.name,
+                resident.title,
+                resident.surname,
+                resident.lastOnline,
+                resident.registered,
+            )
+        }
+    }
+}
+
