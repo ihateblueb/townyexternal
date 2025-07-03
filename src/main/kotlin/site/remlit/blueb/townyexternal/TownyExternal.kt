@@ -1,15 +1,17 @@
 package site.remlit.blueb.townyexternal
 
-import io.ktor.server.engine.EmbeddedServer
-import io.ktor.server.netty.Netty
-import io.ktor.server.netty.NettyApplicationEngine
+import co.aikar.commands.BukkitCommandManager
+import com.palmergames.bukkit.towny.TownyAPI
 import org.bstats.bukkit.Metrics
+import org.bstats.charts.SimplePie
+import org.bstats.charts.SingleLineChart
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.concurrent.thread
 
 class TownyExternal : JavaPlugin() {
     override fun onEnable() {
         instance = this
+        commandManager = BukkitCommandManager(this)
 
         config.addDefault("http-port", 8064)
         config.addDefault("http-address", "127.0.0.1")
@@ -18,7 +20,14 @@ class TownyExternal : JavaPlugin() {
         config.options().copyDefaults(true)
         saveConfig()
 
-        Metrics(this, 26368)
+        val towny = TownyAPI.getInstance()
+
+        val metrics = Metrics(this, 26368)
+        metrics.addCustomChart(SimplePie("require_credential") { config.getString("require-credential", "false") })
+        metrics.addCustomChart(SimplePie("cache_type") { config.getString("cache", "h2") })
+        metrics.addCustomChart(SingleLineChart("towns_on_servers_using_townyexternal") { towny.towns.size })
+        metrics.addCustomChart(SingleLineChart("nations_on_servers_using_townyexternal") { towny.nations.size })
+        metrics.addCustomChart(SingleLineChart("residents_on_servers_using_townyexternal") { towny.residents.size })
 
         /*
         * todo:
@@ -34,6 +43,7 @@ class TownyExternal : JavaPlugin() {
         * */
 
         EventListener.register()
+        Commands.register()
 
         httpServer = thread(name = "TownyExternal") { main() }
         httpServerInitialized = true
@@ -41,6 +51,7 @@ class TownyExternal : JavaPlugin() {
 
     companion object {
         lateinit var instance: JavaPlugin
+        lateinit var commandManager: BukkitCommandManager
 
         var httpServerInitialized = false
         lateinit var httpServer: Thread

@@ -20,7 +20,7 @@ data class TownBlock(
         fun fromTowny(townBlock: com.palmergames.bukkit.towny.`object`.TownBlock): TownBlock {
             return TownBlock(
                 Town.fromTowny(townBlock.town),
-                try { Resident.mini(townBlock.resident) } catch (e: NotRegisteredException) { null },
+                try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
                 Pair(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
@@ -42,7 +42,7 @@ data class TownBlock(
 
         fun mini(townBlock: com.palmergames.bukkit.towny.`object`.TownBlock): MiniTownBlock {
             return MiniTownBlock(
-                try { Resident.mini(townBlock.resident) } catch (e: NotRegisteredException) { null },
+                try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
                 Pair(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,

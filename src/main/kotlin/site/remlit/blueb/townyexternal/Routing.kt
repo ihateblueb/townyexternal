@@ -5,6 +5,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 import io.ktor.http.HttpStatusCode
+import site.remlit.blueb.townyexternal.service.NationService
 import site.remlit.blueb.townyexternal.service.TownService
 
 fun Application.configureRouting() {
@@ -23,7 +24,12 @@ fun Application.configureRouting() {
         }
 
         get("/api/nations") {
-            throw ApiException(HttpStatusCode.NotImplemented)
+            val nations = NationService.getNations()
+
+            if (nations.isEmpty())
+                throw ApiException(HttpStatusCode.NoContent)
+
+            call.respond(nations)
         }
 
         get("/api/nation/:id") {

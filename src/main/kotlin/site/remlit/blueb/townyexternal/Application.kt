@@ -33,13 +33,13 @@ fun Application.module() {
             if (cause is ApiException) {
                 call.respond(status = cause.status, message = ApiError(
                     cause.message,
-                    cause.stackTrace.toString()
+                    cause.stackTraceToString()
                 ))
                 return@exception
             } else {
                 call.respond(status = HttpStatusCode.InternalServerError, message = ApiError(
                     cause.message,
-                    cause.stackTrace.toString()
+                    cause.stackTraceToString()
                 ))
                 return@exception
             }

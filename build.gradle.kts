@@ -20,6 +20,9 @@ repositories {
     maven("https://repo.glaremasters.me/repository/towny/") {
         name = "glaremasters-repo"
     }
+    maven("https://repo.aikar.co/content/groups/aikar/") {
+        name = "aikar-repo"
+    }
 }
 
 dependencies {
@@ -27,6 +30,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.1.0")
+    implementation("co.aikar:acf-bukkit:0.5.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     implementation("io.ktor:ktor-server-core:3.2.0")

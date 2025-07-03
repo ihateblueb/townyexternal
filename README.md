@@ -10,7 +10,7 @@ By default, the server listens to `127.0.0.1:8064`, but that can be configured.
 
 ## Caching
 
-There are three types of caches for TownyExternal: Redis, H2, and Postgres. 
+There are three types of caches for TownyExternal: Redis, H2, and Postgres.
 
 ### H2 (default)
 
