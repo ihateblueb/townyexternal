@@ -1,0 +1,7 @@
+name: TownyExternal
+version: '2025.7.1.0'
+main: site.remlit.blueb.townyexternal.TownyExternal
+api-version: '1.19'
+load: STARTUP
+authors: [ blueb ]
+depend: [ Towny ]
