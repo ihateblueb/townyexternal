@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm") version "2.2.0"
+    kotlin("plugin.serialization") version "2.2.0"
+    id("io.ktor.plugin") version "3.2.0"
     id("com.gradleup.shadow") version "8.3.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
@@ -28,14 +30,12 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     implementation("io.ktor:ktor-server-core:3.2.0")
-    implementation("io.ktor:ktor-server-core-jvm:3.2.0")
     implementation("io.ktor:ktor-server-host-common:3.2.0")
     implementation("io.ktor:ktor-server-netty:3.2.0")
 
     implementation("io.ktor:ktor-server-content-negotiation:3.2.0")
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:3.2.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.0")
     implementation("io.ktor:ktor-server-status-pages:3.2.0")
-    implementation("io.ktor:ktor-server-status-pages-jvm:3.2.0")
 }
 
 tasks {
@@ -63,4 +63,9 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(props)
     }
+}
+
+// satisfy ktor
+application {
+    mainClass = "site.remlit.blueb.townyexternal.ApplicationKt"
 }

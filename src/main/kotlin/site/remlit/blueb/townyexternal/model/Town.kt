@@ -5,21 +5,21 @@ import java.util.UUID
 
 @Serializable
 data class Town(
-    val uuid: UUID,
+    val uuid: String,
     val name: String,
     val mayor: MiniResident,
     val founder: String,
     //val nation: Nation,
-    val homeBlock: TownBlock
+    val homeBlock: MiniTownBlock
 ) {
     companion object {
         fun fromTowny(town: com.palmergames.bukkit.towny.`object`.Town): Town {
             return Town(
-                town.uuid,
+                town.uuid.toString(),
                 town.name,
-                Resident.fromTowny(town.mayor).mini(),
+                Resident.mini(town.mayor),
                 town.founder,
-                TownBlock.fromTowny(town.homeBlock)
+                TownBlock.mini(town.homeBlock)
             )
         }
     }

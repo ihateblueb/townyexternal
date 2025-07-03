@@ -7,33 +7,43 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respondText
+import io.ktor.server.response.respond
 import kotlinx.serialization.json.Json
+import site.remlit.blueb.townyexternal.model.ApiError
 
-fun main(port: Int = 8064) {
-    embeddedServer(Netty, port, host = "127.0.0.1", module = Application::module)
+fun main() {
+    val host = TownyExternal.instance.config.get("http-address")?.toString() ?: "0.0.0.0"
+    val port = TownyExternal.instance.config.get("http-port")?.toString()?.toInt() ?: 8064
+
+    embeddedServer(Netty, port, host, module = Application::module)
         .start(wait = true)
 }
 
 fun Application.module() {
-    install(StatusPages) {
-        exception<Throwable> { call, cause ->
-            if (cause is ApiException) {
-                call.respondText(text = cause.message ?: cause.status.description , status = cause.status)
-                return@exception
-            } else {
-                call.respondText(text = cause.message ?: HttpStatusCode.InternalServerError.description , status = HttpStatusCode.InternalServerError)
-                return@exception
-            }
-        }
-    }
-
     install(ContentNegotiation) {
         json(Json {
             encodeDefaults = true
             prettyPrint = true
             isLenient = true
         })
+    }
+
+    install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            if (cause is ApiException) {
+                call.respond(status = cause.status, message = ApiError(
+                    cause.message,
+                    cause.stackTrace.toString()
+                ))
+                return@exception
+            } else {
+                call.respond(status = HttpStatusCode.InternalServerError, message = ApiError(
+                    cause.message,
+                    cause.stackTrace.toString()
+                ))
+                return@exception
+            }
+        }
     }
 
     configureRouting()

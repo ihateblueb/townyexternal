@@ -1,11 +1,10 @@
 package site.remlit.blueb.townyexternal.model
 
 import kotlinx.serialization.Serializable
-import java.util.UUID
 
 @Serializable
 data class MiniResident(
-    val uuid: UUID,
+    val uuid: String,
 
     val name: String,
     val title: String? = null,

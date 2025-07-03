@@ -1,11 +1,10 @@
 package site.remlit.blueb.townyexternal.model
 
 import kotlinx.serialization.Serializable
-import java.util.UUID
 
 @Serializable
 data class Resident(
-    val uuid: UUID,
+    val uuid: String,
 
     val name: String,
     val title: String? = null,
@@ -20,10 +19,10 @@ data class Resident(
     companion object {
         fun fromTowny(resident: com.palmergames.bukkit.towny.`object`.Resident): Resident {
             return Resident(
-                resident.uuid,
+                resident.uuid.toString(),
                 resident.name,
-                resident.title,
-                resident.surname,
+                resident.title?.ifBlank { null },
+                resident.surname?.ifBlank { null },
                 resident.lastOnline,
                 resident.registered,
                 Town.fromTowny(resident.town),
@@ -35,8 +34,19 @@ data class Resident(
             return MiniResident(
                 resident.uuid,
                 resident.name,
-                resident.title,
-                resident.surname,
+                resident.title?.ifBlank { null },
+                resident.surname?.ifBlank { null },
+                resident.lastOnline,
+                resident.registered,
+            )
+        }
+
+        fun mini(resident: com.palmergames.bukkit.towny.`object`.Resident): MiniResident {
+            return MiniResident(
+                resident.uuid.toString(),
+                resident.name,
+                resident.title?.ifBlank { null },
+                resident.surname?.ifBlank { null },
                 resident.lastOnline,
                 resident.registered,
             )

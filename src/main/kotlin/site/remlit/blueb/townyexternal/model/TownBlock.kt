@@ -1,7 +1,7 @@
 package site.remlit.blueb.townyexternal.model
 
+import com.palmergames.bukkit.towny.exceptions.NotRegisteredException
 import kotlinx.serialization.Serializable
-import java.util.UUID
 
 @Serializable
 data class TownBlock(
@@ -20,7 +20,7 @@ data class TownBlock(
         fun fromTowny(townBlock: com.palmergames.bukkit.towny.`object`.TownBlock): TownBlock {
             return TownBlock(
                 Town.fromTowny(townBlock.town),
-                Resident.fromTowny(townBlock.resident).mini(),
+                try { Resident.mini(townBlock.resident) } catch (e: NotRegisteredException) { null },
                 TownBlockType.fromTowny(townBlock.type),
                 Pair(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
@@ -36,6 +36,17 @@ data class TownBlock(
                 townBlock.coord,
                 townBlock.price,
                 townBlock.outpost,
+                townBlock.claimedAt,
+            )
+        }
+
+        fun mini(townBlock: com.palmergames.bukkit.towny.`object`.TownBlock): MiniTownBlock {
+            return MiniTownBlock(
+                try { Resident.mini(townBlock.resident) } catch (e: NotRegisteredException) { null },
+                TownBlockType.fromTowny(townBlock.type),
+                Pair(townBlock.coord.x, townBlock.coord.z),
+                townBlock.plotPrice,
+                townBlock.isOutpost,
                 townBlock.claimedAt,
             )
         }

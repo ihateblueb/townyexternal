@@ -1,5 +1,9 @@
 package site.remlit.blueb.townyexternal
 
+import io.ktor.server.engine.EmbeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.netty.NettyApplicationEngine
+import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.concurrent.thread
 
@@ -14,13 +18,15 @@ class TownyExternal : JavaPlugin() {
         config.options().copyDefaults(true)
         saveConfig()
 
+        Metrics(this, 26368)
+
         /*
         * todo:
         * config cache
         * config cache reset events
         * config cache storage type (redis, h2, postgres)
         *
-        * respect config for host & add auth
+        * add auth
         *
         * register event listener
         *
@@ -29,9 +35,7 @@ class TownyExternal : JavaPlugin() {
 
         EventListener.register()
 
-        httpServer = thread(name = "TownyExternal") {
-            main(instance.config.get("http-port")?.toString()?.toInt() ?: 8064)
-        }
+        httpServer = thread(name = "TownyExternal") { main() }
         httpServerInitialized = true
     }
 
