@@ -5,6 +5,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 import io.ktor.http.HttpStatusCode
+import site.remlit.blueb.townyexternal.model.ApiException
 import site.remlit.blueb.townyexternal.service.NationService
 import site.remlit.blueb.townyexternal.service.TownService
 

@@ -10,6 +10,7 @@ import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 import kotlinx.serialization.json.Json
 import site.remlit.blueb.townyexternal.model.ApiError
+import site.remlit.blueb.townyexternal.model.ApiException
 
 fun main() {
     val host = TownyExternal.instance.config.get("http-address")?.toString() ?: "0.0.0.0"

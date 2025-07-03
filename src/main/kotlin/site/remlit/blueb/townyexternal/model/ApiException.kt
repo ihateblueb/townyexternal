@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal
+package site.remlit.blueb.townyexternal.model
 
 import io.ktor.http.HttpStatusCode
 

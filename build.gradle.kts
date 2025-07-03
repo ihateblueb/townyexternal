@@ -40,6 +40,11 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:3.2.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.0")
     implementation("io.ktor:ktor-server-status-pages:3.2.0")
+
+    implementation("redis.clients:jedis:6.0.0")
+    implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("com.h2database:h2:2.3.230")
+    implementation("org.postgresql:postgresql:42.7.7")
 }
 
 tasks {

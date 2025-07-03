@@ -8,7 +8,7 @@ data class TownBlock(
     val town: Town,
     val resident: MiniResident? = null,
     val type: TownBlockType,
-    val coord: Pair<Int, Int>,
+    val coord: Coord,
     val price: Double,
     val outpost: Boolean = false,
     // val group
@@ -22,7 +22,7 @@ data class TownBlock(
                 Town.fromTowny(townBlock.town),
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                Pair(townBlock.coord.x, townBlock.coord.z),
+                Coord(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,
@@ -44,7 +44,7 @@ data class TownBlock(
             return MiniTownBlock(
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                Pair(townBlock.coord.x, townBlock.coord.z),
+                Coord(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,

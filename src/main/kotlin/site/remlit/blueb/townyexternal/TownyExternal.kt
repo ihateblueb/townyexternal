@@ -6,6 +6,7 @@ import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bstats.charts.SingleLineChart
 import org.bukkit.plugin.java.JavaPlugin
+import site.remlit.blueb.townyexternal.service.CacheService
 import kotlin.concurrent.thread
 
 class TownyExternal : JavaPlugin() {
@@ -44,6 +45,8 @@ class TownyExternal : JavaPlugin() {
 
         EventListener.register()
         Commands.register()
+
+        CacheService.init()
 
         httpServer = thread(name = "TownyExternal") { main() }
         httpServerInitialized = true
