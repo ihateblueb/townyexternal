@@ -5,7 +5,6 @@ import com.zaxxer.hikari.HikariDataSource
 import redis.clients.jedis.JedisPool
 import site.remlit.blueb.townyexternal.TownyExternal
 import site.remlit.blueb.townyexternal.model.CacheMode
-import site.remlit.blueb.townyexternal.model.CacheType
 import java.sql.Connection
 import java.sql.SQLException
 import kotlin.concurrent.thread
@@ -85,7 +84,7 @@ class CacheService {
             hikariConnection.prepareStatement("CREATE TABLE IF NOT EXISTS CACHE (a text, b text)").use { it.execute() }
         }
 
-        fun get(key: CacheType): String? {
+        fun get(key: String): String? {
             if (!ready)
                 throw Exception("Cache not ready")
 
@@ -107,7 +106,7 @@ class CacheService {
             }
         }
 
-        fun set(key: CacheType, value: String) {
+        fun set(key: String, value: String) {
             if (!ready)
                 throw Exception("Cache not ready")
 
@@ -129,7 +128,7 @@ class CacheService {
             }
         }
 
-        fun clear(key: CacheType) {
+        fun clear(key: String) {
             if (!ready)
                 throw Exception("Cache not ready")
 
@@ -137,7 +136,7 @@ class CacheService {
                 when (mode) {
                     CacheMode.H2, CacheMode.POSTGRES -> {
                         hikariConnection.prepareStatement("DELETE FROM CACHE WHERE a = ?").use {
-                            it.setString(1, key.toString())
+                            it.setString(1, key)
                             it.execute()
                         }
                     }

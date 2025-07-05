@@ -1,1 +1,1 @@
-rootProject.name = "townyexternal"
+rootProject.name = "TownyExternal"

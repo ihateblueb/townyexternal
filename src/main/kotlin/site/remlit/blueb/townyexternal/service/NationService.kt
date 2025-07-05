@@ -1,11 +1,9 @@
 package site.remlit.blueb.townyexternal.service
 
 import com.palmergames.bukkit.towny.TownyAPI
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import site.remlit.blueb.townyexternal.model.CacheType
 import site.remlit.blueb.townyexternal.model.Nation
-import site.remlit.blueb.townyexternal.model.Town
+import java.util.UUID
 
 class NationService {
     companion object {
@@ -13,20 +11,43 @@ class NationService {
 
         fun getNationsFresh(): List<Nation> {
             val nations = mutableListOf<Nation>()
+            val uuids = mutableListOf<String>()
 
             for (nation in towny.nations) {
-                nations.add(Nation.fromTowny(nation))
+                val value = Nation.fromTowny(nation)
+                nations.add(value)
+                CacheService.set("nation_${nation.uuid}", Json.encodeToString(Nation.serializer(), value))
+                uuids.add(nation.uuid.toString())
             }
 
-            val list = nations.toList()
-            CacheService.set(CacheType.NATIONS, Json.encodeToString(ListSerializer(Nation.serializer()), list))
+            CacheService.set("nations", Json.encodeToString(uuids))
 
-            return list
+            return nations.toList()
+        }
+
+        fun getNationFresh(uuid: String): Nation? {
+            val nation = towny.getNation(UUID.fromString(uuid)) ?: return null
+            val value = Nation.fromTowny(nation)
+            CacheService.set("nation_${nation.uuid}", Json.encodeToString(Nation.serializer(), value))
+            return value
+        }
+
+        fun getNation(uuid: String): Nation? {
+            val cache = CacheService.get("nation_$uuid")
+            return if (cache != null) Json.decodeFromString<Nation>(cache) else getNationFresh(uuid)
         }
 
         fun getNations(): List<Nation> {
-            val cache = CacheService.get(CacheType.NATIONS)
-            return if (cache != null) Json.decodeFromString<List<Nation>>(cache) else getNationsFresh()
+            val cache = CacheService.get("nations")
+            return if (cache != null) Json.decodeFromString<List<String>>(cache).let {
+                val nations = mutableListOf<Nation>()
+                for(item in it) {
+                    val nation = getNation(item)
+                    if (nation != null)
+                    nations.add(nation)
+                }
+                nations.toList()
+            } else getNationsFresh()
         }
     }
 }

@@ -2,8 +2,6 @@
 
 A simple plugin that exposes information from Towny in a simple, easy to use, HTTP API.
 
-Optionally, you can require bearer authentication. Tokens can be generated with `/townyexternal token generate` and later revoked with `/townyexternal token revoke [token]`.
-
 Caching can also be configured to reduce unnecessary calls to the Towny API and unnecessary server load.
 
 By default, the server listens to `127.0.0.1:8064`, but that can be configured.

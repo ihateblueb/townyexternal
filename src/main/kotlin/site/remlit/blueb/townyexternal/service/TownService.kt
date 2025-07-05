@@ -1,10 +1,9 @@
 package site.remlit.blueb.townyexternal.service
 
 import com.palmergames.bukkit.towny.TownyAPI
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import site.remlit.blueb.townyexternal.model.CacheType
 import site.remlit.blueb.townyexternal.model.Town
+import java.util.UUID
 
 class TownService {
     companion object {
@@ -12,20 +11,43 @@ class TownService {
 
         fun getTownsFresh(): List<Town> {
             val towns = mutableListOf<Town>()
+            val uuids = mutableListOf<String>()
 
             for (town in towny.towns) {
-                towns.add(Town.fromTowny(town))
+                val value = Town.fromTowny(town)
+                towns.add(value)
+                CacheService.set("town_${town.uuid}", Json.encodeToString(Town.serializer(), value))
+                uuids.add(town.uuid.toString())
             }
 
-            val list = towns.toList()
-            CacheService.set(CacheType.TOWNS, Json.encodeToString(ListSerializer(Town.serializer()), list))
+            CacheService.set("towns", Json.encodeToString(uuids))
 
-            return list
+            return towns.toList()
+        }
+
+        fun getTownFresh(uuid: String): Town? {
+            val town = towny.getTown(UUID.fromString(uuid)) ?: return null
+            val value = Town.fromTowny(town)
+            CacheService.set("town_${town.uuid}", Json.encodeToString(Town.serializer(), value))
+            return value
+        }
+
+        fun getTown(uuid: String): Town? {
+            val cache = CacheService.get("town_$uuid")
+            return if (cache != null) Json.decodeFromString<Town>(cache) else getTownFresh(uuid)
         }
 
         fun getTowns(): List<Town> {
-            val cache = CacheService.get(CacheType.TOWNS)
-            return if (cache != null) Json.decodeFromString<List<Town>>(cache) else getTownsFresh()
+            val cache = CacheService.get("towns")
+            return if (cache != null) Json.decodeFromString<List<String>>(cache).let {
+                val towns = mutableListOf<Town>()
+                for(item in it) {
+                    val town = getTown(item)
+                    if (town != null)
+                        towns.add(town)
+                }
+                towns.toList()
+            } else getTownsFresh()
         }
     }
 }
