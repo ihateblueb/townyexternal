@@ -6,6 +6,13 @@ Caching can also be configured to reduce unnecessary calls to the Towny API and 
 
 By default, the server listens to `127.0.0.1:8064`, but that can be configured.
 
+## Endpoints
+
+- `/api/towns` fetches a list of all towns
+- `/api/town/{id}` fetches a specific town
+- `/api/nations` fetches a list of all nations
+- `/api/nation/{id}` fetches a specific nation
+
 ## Caching
 
 There are three types of caches for TownyExternal: Redis, H2, and Postgres.
