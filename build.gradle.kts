@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.0"
     kotlin("plugin.serialization") version "2.2.0"
-    id("io.ktor.plugin") version "3.2.0"
     id("com.gradleup.shadow") version "8.3.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
@@ -72,9 +71,4 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(props)
     }
-}
-
-// satisfy ktor
-application {
-    mainClass = "site.remlit.blueb.townyexternal.ApplicationKt"
 }
