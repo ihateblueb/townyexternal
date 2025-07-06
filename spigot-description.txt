@@ -1,53 +1,53 @@
-# TownyExternal
+[SIZE=6]TownyExternal[/SIZE]
 
 A simple plugin that exposes information from Towny in a simple, easy to use, HTTP API.
 
 Caching can also be configured to reduce unnecessary calls to the Towny API and unnecessary server load.
 
-By default, the server listens to `127.0.0.1:8064`, but that can be configured.
+By default, the server listens to 127.0.0.1:8064, but that can be configured.
 
-## Endpoints
+[SIZE=5]Endpoints[/SIZE]
 
-- `/api/towns` fetches a list of all towns
-- `/api/town/{id}` fetches a specific town
-- `/api/nations` fetches a list of all nations
-- `/api/nation/{id}` fetches a specific nation
+- [B]/api/towns[/B] fetches a list of all towns
+- [B]/api/town/{id}[/B] fetches a specific town
+- [B]/api/nations[/B] fetches a list of all nations
+- [B]/api/nation/{id}[/B] fetches a specific nation
 
-## Caching
+[SIZE=5]Caching[/SIZE]
 
 There are three types of caches for TownyExternal: Redis, H2, and Postgres.
-
-### H2 (default)
+[B]
+[SIZE=4]H2 (default)[/SIZE][/B]
 
 Everything will be stored in memory. This is the easiest option and default, but required more calls to the Towny API than the other two options since the cache will be cleared when your server restarts.
 
 If you have nothing already set, you don't have to add this line to your config.yml since it's default, but you can.
 
-```yaml
+[code]
 cache: "h2"
-```
+[/code]
 
-### Redis (recommended)
+[SIZE=4][B]Redis (recommended)[/B][/SIZE]
 
 Requires installation of Redis or a similar program like Valkey.
 
 Add the following to your config.yml.
 
-```yaml
+[code]
 cache: "redis"
 
 redis-host: "127.0.0.1" # or whatever your host is
 redis-port: "6379" # or whatever your port is
 redis-prefix: "" # can be left blank, set if you have other programs using the same database
-```
+[/code]
 
-### Postgres
+[SIZE=4][B]Postgres[/B][/SIZE]
 
 Requires installation of PostgreSQL.
 
 Add the following to your config.yml.
 
-```yaml
+[code]
 cache: "postgres"
 
 postgres-host: "127.0.0.1" # or whatever your host is
@@ -55,4 +55,4 @@ postgres-port: "5432" # or whatever your port is
 postgres-db: "townyexternal" # or whatever your database name is
 postgres-user: "youruser" # change this
 postgres-pass: "yourpass" # change this
-```
+[/code]

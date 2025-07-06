@@ -15,7 +15,7 @@ class Commands : BaseCommand() {
 
     @Default
     fun default(sender: CommandSender) {
-        sender.sendMessage("Running TownyExternal version ${TownyExternal.instance.pluginMeta.version}")
+        sender.sendMessage("Running TownyExternal version ${TownyExternal.instance.description.version}")
     }
 
     companion object {
