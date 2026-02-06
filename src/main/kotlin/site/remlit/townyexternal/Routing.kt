@@ -36,7 +36,7 @@ fun Application.configureRouting() {
             call.respond(nations)
         }
 
-        get("/api/nation/:id") {
+        get("/api/nation/{id}") {
             val nation = NationService.getNation(call.parameters.getOrFail("id"))
             if (nation == null)
                 throw ApiException(HttpStatusCode.NotFound)
@@ -48,7 +48,7 @@ fun Application.configureRouting() {
             throw ApiException(HttpStatusCode.NotImplemented)
         }
 
-        get("/api/resident/:id") {
+        get("/api/resident/{id}") {
             throw ApiException(HttpStatusCode.NotImplemented)
         }
     }

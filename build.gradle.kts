@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "site.remlit"
-version = "2026.2.0"
+version = "2026.2.1"
 
 repositories {
     mavenCentral()
@@ -52,6 +52,7 @@ tasks {
     shadowJar {
         relocate("org.bstats", "site.remlit.townyexternal.bstats-bukkit")
         relocate("io.ktor", "site.remlit.townyexternal.ktor")
+        relocate("io.netty", "site.remlit.townyexternal.netty")
     }
     runServer {
         minecraftVersion("1.21.10")

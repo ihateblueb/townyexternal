@@ -3,8 +3,7 @@ package site.remlit.townyexternal.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Coord(
-    val x: Double,
-    val y: Double,
-    val z: Double,
+data class ChunkCoord(
+    val x: Int,
+    val z: Int,
 )

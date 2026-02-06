@@ -1,6 +1,5 @@
 package site.remlit.townyexternal.model
 
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,7 +7,7 @@ data class TownBlock(
     val town: Town,
     val resident: MiniResident? = null,
     val type: TownBlockType,
-    val coord: Coord,
+    val coord: ChunkCoord,
     val price: Double,
     val outpost: Boolean = false,
     // val group
@@ -22,7 +21,7 @@ data class TownBlock(
                 Town.fromTowny(townBlock.town),
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                Coord(townBlock.coord.x, townBlock.coord.z),
+                ChunkCoord(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,
@@ -44,7 +43,7 @@ data class TownBlock(
             return MiniTownBlock(
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                Coord(townBlock.coord.x, townBlock.coord.z),
+                ChunkCoord(townBlock.coord.x, townBlock.coord.z),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,

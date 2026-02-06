@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class MiniTownBlock(
     val resident: MiniResident? = null,
     val type: TownBlockType,
-    val coord: Coord,
+    val coord: ChunkCoord,
     val price: Double,
     val outpost: Boolean = false,
     // val group
