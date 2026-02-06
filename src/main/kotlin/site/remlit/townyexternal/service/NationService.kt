@@ -1,8 +1,8 @@
-package site.remlit.blueb.townyexternal.service
+package site.remlit.townyexternal.service
 
 import com.palmergames.bukkit.towny.TownyAPI
 import kotlinx.serialization.json.Json
-import site.remlit.blueb.townyexternal.model.Nation
+import site.remlit.townyexternal.model.Nation
 import java.util.UUID
 
 class NationService {

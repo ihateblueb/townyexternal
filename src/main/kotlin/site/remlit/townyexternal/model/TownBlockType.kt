@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal.model
+package site.remlit.townyexternal.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

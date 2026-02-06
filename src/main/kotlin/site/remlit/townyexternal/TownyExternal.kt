@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal
+package site.remlit.townyexternal
 
 import co.aikar.commands.BukkitCommandManager
 import com.palmergames.bukkit.towny.TownyAPI
@@ -6,7 +6,7 @@ import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bstats.charts.SingleLineChart
 import org.bukkit.plugin.java.JavaPlugin
-import site.remlit.blueb.townyexternal.service.CacheService
+import site.remlit.townyexternal.service.CacheService
 import kotlin.concurrent.thread
 
 class TownyExternal : JavaPlugin() {

@@ -1,8 +1,8 @@
-package site.remlit.blueb.townyexternal.service
+package site.remlit.townyexternal.service
 
 import com.palmergames.bukkit.towny.TownyAPI
 import kotlinx.serialization.json.Json
-import site.remlit.blueb.townyexternal.model.Town
+import site.remlit.townyexternal.model.Town
 import java.util.UUID
 
 class TownService {

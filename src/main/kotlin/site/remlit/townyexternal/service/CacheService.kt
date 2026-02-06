@@ -1,10 +1,10 @@
-package site.remlit.blueb.townyexternal.service
+package site.remlit.townyexternal.service
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import redis.clients.jedis.JedisPool
-import site.remlit.blueb.townyexternal.TownyExternal
-import site.remlit.blueb.townyexternal.model.CacheMode
+import site.remlit.townyexternal.TownyExternal
+import site.remlit.townyexternal.model.CacheMode
 import java.sql.Connection
 import java.sql.SQLException
 import kotlin.concurrent.thread

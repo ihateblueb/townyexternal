@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal
+package site.remlit.townyexternal
 
 import com.palmergames.bukkit.towny.event.DeleteNationEvent
 import com.palmergames.bukkit.towny.event.DeleteTownEvent
@@ -43,9 +43,9 @@ import com.palmergames.bukkit.towny.event.town.TownUnconquerEvent
 import com.palmergames.bukkit.towny.event.town.toggle.TownToggleEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import site.remlit.blueb.townyexternal.service.CacheService
-import site.remlit.blueb.townyexternal.service.NationService
-import site.remlit.blueb.townyexternal.service.TownService
+import site.remlit.townyexternal.service.CacheService
+import site.remlit.townyexternal.service.NationService
+import site.remlit.townyexternal.service.TownService
 import kotlin.concurrent.thread
 
 @Suppress("unused")
@@ -117,11 +117,11 @@ class EventListener : Listener {
     @EventHandler
     fun onNationMerge(event: NationMergeEvent) = resetNationCache()
     @EventHandler
-    fun onNationSanctionTownAdd(event: NationSanctionTownAddEvent) = { resetNationCache(); resetTownCache() }
+    fun onNationSanctionTownAdd(event: NationSanctionTownAddEvent) = run { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationSanctionTownRemove(event: NationSanctionTownRemoveEvent) = { resetNationCache(); resetTownCache() }
+    fun onNationSanctionTownRemove(event: NationSanctionTownRemoveEvent) = run { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationTownLeave(event: NationTownLeaveEvent) = { resetNationCache(); resetTownCache() }
+    fun onNationTownLeave(event: NationTownLeaveEvent) = run { resetNationCache(); resetTownCache() }
     @EventHandler
     fun onNationAcceptAllyRequest(event: NationAcceptAllyRequestEvent) = resetNationCache()
     @EventHandler
@@ -133,7 +133,7 @@ class EventListener : Listener {
     @EventHandler
     fun onNationRemoveAlly(event: NationRemoveAllyEvent) = resetNationCache()
     @EventHandler
-    fun onNationRemoveTown(event: NationRemoveTownEvent) = { resetNationCache(); resetTownCache() }
+    fun onNationRemoveTown(event: NationRemoveTownEvent) = run { resetNationCache(); resetTownCache() }
 
 
     fun resetAllCaches() {

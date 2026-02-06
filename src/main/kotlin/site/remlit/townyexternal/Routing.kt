@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal
+package site.remlit.townyexternal
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -6,9 +6,9 @@ import io.ktor.server.routing.*
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.util.getOrFail
-import site.remlit.blueb.townyexternal.model.ApiException
-import site.remlit.blueb.townyexternal.service.NationService
-import site.remlit.blueb.townyexternal.service.TownService
+import site.remlit.townyexternal.model.ApiException
+import site.remlit.townyexternal.service.NationService
+import site.remlit.townyexternal.service.TownService
 
 fun Application.configureRouting() {
     routing {

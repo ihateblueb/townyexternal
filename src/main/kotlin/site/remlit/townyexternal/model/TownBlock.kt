@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal.model
+package site.remlit.townyexternal.model
 
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException
 import kotlinx.serialization.Serializable

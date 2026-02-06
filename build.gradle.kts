@@ -5,13 +5,14 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
-group = "site.remlit.blueb"
-version = "2025.7.2.0"
+group = "site.remlit"
+version = "2026.2.0"
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") {
-        name = "spigotmc-repo"
+
+    maven("https://repo.papermc.io/repository/maven-public/") {
+        name = "papermc"
     }
     maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
@@ -25,39 +26,48 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.3.0")
 
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.1.0")
-    implementation("co.aikar:acf-bukkit:0.5.1-SNAPSHOT")
+    compileOnly("co.aikar:acf-bukkit:0.5.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
-    implementation("io.ktor:ktor-server-core:3.2.0")
-    implementation("io.ktor:ktor-server-host-common:3.2.0")
-    implementation("io.ktor:ktor-server-netty:3.2.0")
+    implementation("io.ktor:ktor-server-core-jvm:3.4.0")
+    implementation("io.ktor:ktor-server-host-common-jvm:3.4.0")
+    implementation("io.ktor:ktor-server-netty-jvm:3.4.0")
 
-    implementation("io.ktor:ktor-server-content-negotiation:3.2.0")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.0")
-    implementation("io.ktor:ktor-server-status-pages:3.2.0")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:3.4.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:3.4.0")
+    implementation("io.ktor:ktor-server-status-pages-jvm:3.4.0")
+    implementation("io.ktor:ktor-server-cors-jvm:3.4.0")
 
-    implementation("redis.clients:jedis:6.0.0")
-    implementation("com.zaxxer:HikariCP:4.0.3")
-    implementation("com.h2database:h2:2.3.230")
-    implementation("org.postgresql:postgresql:42.7.7")
+    compileOnly("redis.clients:jedis:6.0.0")
+    compileOnly("com.zaxxer:HikariCP:6.3.0")
+    compileOnly("com.h2database:h2:2.3.230")
+    compileOnly("org.postgresql:postgresql:42.7.7")
 }
 
 tasks {
     shadowJar {
-        relocate("org.bstats", "site.remlit.blueb.townyexternal.bstats-bukkit")
+        relocate("org.bstats", "site.remlit.townyexternal.bstats-bukkit")
+        relocate("io.ktor", "site.remlit.townyexternal.ktor")
     }
     runServer {
-        minecraftVersion("1.19.4")
+        minecraftVersion("1.21.10")
     }
 }
 
-val targetJavaVersion = 17
+val targetJavaVersion = 21
+
 kotlin {
     jvmToolchain(targetJavaVersion)
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+    }
 }
 
 tasks.build {

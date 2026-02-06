@@ -1,4 +1,4 @@
-package site.remlit.blueb.townyexternal
+package site.remlit.townyexternal
 
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.annotation.CommandAlias
