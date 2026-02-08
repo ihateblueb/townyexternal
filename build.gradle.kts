@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "site.remlit"
-version = "2026.2.1"
+version = "2026.2.2"
 
 repositories {
     maven("https://repo.remlit.site/mirror")

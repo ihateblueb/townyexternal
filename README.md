@@ -2,8 +2,6 @@
 
 A simple plugin that exposes information from Towny in a simple, easy to use, HTTP API.
 
-Caching can also be configured to reduce unnecessary calls to the Towny API and unnecessary server load.
-
 By default, the server listens to `127.0.0.1:8064`, but that can be configured.
 
 ## Why?
@@ -21,7 +19,10 @@ So you can make cool things like this: https://orchidmc.org/#towns
 
 There are three types of caches for TownyExternal: Redis, H2, and Postgres.
 
-### H2 (default)
+For some servers with a large amount of players, towns, or nations, H2 might use too much memory or be too slow. In
+that case, you can use Postgres or Redis.
+
+### H2 (recommended, default)
 
 Everything will be stored in memory. This is the easiest option and default, but required more calls to the Towny API than the other two options since the cache will be cleared when your server restarts.
 
@@ -31,7 +32,7 @@ If you have nothing already set, you don't have to add this line to your config.
 cache: "h2"
 ```
 
-### Redis (recommended)
+### Redis
 
 Requires installation of Redis or a similar program like Valkey.
 
