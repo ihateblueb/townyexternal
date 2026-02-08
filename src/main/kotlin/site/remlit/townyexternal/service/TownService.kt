@@ -16,7 +16,7 @@ class TownService {
             for (town in towny.towns) {
                 val value = Town.fromTowny(town)
                 towns.add(value)
-                CacheService.set("town_${town.uuid}", Json.encodeToString(Town.serializer(), value))
+                CacheService.set("town_${town.uuid}", Json.encodeToString(value))
                 uuids.add(town.uuid.toString())
             }
 
@@ -28,7 +28,7 @@ class TownService {
         fun getTownFresh(uuid: String): Town? {
             val town = towny.getTown(UUID.fromString(uuid)) ?: return null
             val value = Town.fromTowny(town)
-            CacheService.set("town_${town.uuid}", Json.encodeToString(Town.serializer(), value))
+            CacheService.set("town_${town.uuid}", Json.encodeToString(value))
             return value
         }
 

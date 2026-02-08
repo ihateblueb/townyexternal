@@ -41,6 +41,10 @@ import com.palmergames.bukkit.towny.event.town.TownTrustTownRemoveEvent
 import com.palmergames.bukkit.towny.event.town.TownUnclaimEvent
 import com.palmergames.bukkit.towny.event.town.TownUnconquerEvent
 import com.palmergames.bukkit.towny.event.town.toggle.TownToggleEvent
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import site.remlit.townyexternal.service.CacheService
@@ -51,90 +55,92 @@ import kotlin.concurrent.thread
 @Suppress("unused")
 class EventListener : Listener {
     @EventHandler
-    fun onNewDay(event: NewDayEvent) = resetAllCaches()
+    fun onNewDay(event: NewDayEvent) { resetAllCaches() }
 
     @EventHandler
-    fun onNewTown(event: NewTownEvent) = resetTownCache()
+    fun onNewTown(event: NewTownEvent) { resetTownCache() }
     @EventHandler
-    fun onDeleteTown(event: DeleteTownEvent) = resetTownCache()
+    fun onDeleteTown(event: DeleteTownEvent) { resetTownCache() }
     @EventHandler
-    fun onRenameTown(event: RenameTownEvent) = resetTownCache()
+    fun onRenameTown(event: RenameTownEvent) { resetTownCache() }
     @EventHandler
-    fun onTownToggle(event: TownToggleEvent) = resetTownCache()
+    fun onTownToggle(event: TownToggleEvent) { resetTownCache() }
     @EventHandler
-    fun onTownAddAlliedTown(event: TownAddAlliedTownEvent) = resetTownCache()
+    fun onTownAddAlliedTown(event: TownAddAlliedTownEvent) { resetTownCache() }
     @EventHandler
-    fun onTownAddEnemiedTown(event: TownAddEnemiedTownEvent) = resetTownCache()
+    fun onTownAddEnemiedTown(event: TownAddEnemiedTownEvent) { resetTownCache() }
     @EventHandler
-    fun onTownConquered(event: TownConqueredEvent) = resetTownCache()
+    fun onTownConquered(event: TownConqueredEvent) { resetTownCache() }
     @EventHandler
-    fun onTownMayorChange(event: TownMayorChangeEvent) = resetTownCache()
+    fun onTownMayorChange(event: TownMayorChangeEvent) { resetTownCache() }
     @EventHandler
-    fun onTownMerge(event: TownMergeEvent) = resetTownCache()
+    fun onTownMerge(event: TownMergeEvent) { resetTownCache() }
     @EventHandler
-    fun onTownOutlawAdd(event: TownOutlawAddEvent) = resetTownCache()
+    fun onTownOutlawAdd(event: TownOutlawAddEvent) { resetTownCache() }
     @EventHandler
-    fun onTownOutlawRemove(event: TownOutlawRemoveEvent) = resetTownCache()
+    fun onTownOutlawRemove(event: TownOutlawRemoveEvent) { resetTownCache() }
     @EventHandler
-    fun onTownReclaimed(event: TownReclaimedEvent) = resetTownCache()
+    fun onTownReclaimed(event: TownReclaimedEvent) { resetTownCache() }
     @EventHandler
-    fun onTownRemoveAlliedTown(event: TownRemoveAlliedTownEvent) = resetTownCache()
+    fun onTownRemoveAlliedTown(event: TownRemoveAlliedTownEvent) { resetTownCache() }
     @EventHandler
-    fun onTownRemoveEnemiedTown(event: TownRemoveEnemiedTownEvent) = resetTownCache()
+    fun onTownRemoveEnemiedTown(event: TownRemoveEnemiedTownEvent) { resetTownCache() }
     @EventHandler
-    fun onTownRuined(event: TownRuinedEvent) = resetTownCache()
+    fun onTownRuined(event: TownRuinedEvent) { resetTownCache() }
     @EventHandler
-    fun onTownSetSpawn(event: TownSetSpawnEvent) = resetTownCache()
+    fun onTownSetSpawn(event: TownSetSpawnEvent) { resetTownCache() }
     @EventHandler
-    fun onTownTrustAdd(event: TownTrustAddEvent) = resetTownCache()
+    fun onTownTrustAdd(event: TownTrustAddEvent) { resetTownCache() }
     @EventHandler
-    fun onTownTrustRemove(event: TownTrustRemoveEvent) = resetTownCache()
+    fun onTownTrustRemove(event: TownTrustRemoveEvent) { resetTownCache() }
     @EventHandler
-    fun onTownTrustTownAdd(event: TownTrustTownAddEvent) = resetTownCache()
+    fun onTownTrustTownAdd(event: TownTrustTownAddEvent) { resetTownCache() }
     @EventHandler
-    fun onTownTrustTownRemove(event: TownTrustTownRemoveEvent) = resetTownCache()
+    fun onTownTrustTownRemove(event: TownTrustTownRemoveEvent) { resetTownCache() }
     @EventHandler
-    fun onTownUnclaim(event: TownUnclaimEvent) = resetTownCache()
+    fun onTownUnclaim(event: TownUnclaimEvent) { resetTownCache() }
     @EventHandler
-    fun onTownUnconquer(event: TownUnconquerEvent) = resetTownCache()
+    fun onTownUnconquer(event: TownUnconquerEvent) { resetTownCache() }
     @EventHandler
-    fun onTownAddResident(event: TownAddResidentEvent) = resetTownCache()
+    fun onTownAddResident(event: TownAddResidentEvent) { resetTownCache() }
     @EventHandler
-    fun onTownRemoveResident(event: TownRemoveResidentEvent) = resetTownCache()
+    fun onTownRemoveResident(event: TownRemoveResidentEvent) { resetTownCache() }
     @EventHandler
-    fun onTownClaim(event: TownClaimEvent) = resetTownCache()
+    fun onTownClaim(event: TownClaimEvent) { resetTownCache() }
 
     @EventHandler
-    fun onNewNation(event: NewNationEvent) = resetNationCache()
+    fun onNewNation(event: NewNationEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onDeleteNation(event: DeleteNationEvent) = resetNationCache()
+    fun onDeleteNation(event: DeleteNationEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onRenameNation(event: RenameNationEvent) = resetNationCache()
+    fun onRenameNation(event: RenameNationEvent) { resetNationCache() }
     @EventHandler
-    fun onNationToggle(event: NationToggleEvent) = resetNationCache()
+    fun onNationToggle(event: NationToggleEvent) { resetNationCache() }
     @EventHandler
-    fun onNationKingChange(event: NationKingChangeEvent) = resetNationCache()
+    fun onNationKingChange(event: NationKingChangeEvent) { resetNationCache() }
     @EventHandler
-    fun onNationMerge(event: NationMergeEvent) = resetNationCache()
+    fun onNationMerge(event: NationMergeEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationSanctionTownAdd(event: NationSanctionTownAddEvent) = run { resetNationCache(); resetTownCache() }
+    fun onNationSanctionTownAdd(event: NationSanctionTownAddEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationSanctionTownRemove(event: NationSanctionTownRemoveEvent) = run { resetNationCache(); resetTownCache() }
+    fun onNationSanctionTownRemove(event: NationSanctionTownRemoveEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationTownLeave(event: NationTownLeaveEvent) = run { resetNationCache(); resetTownCache() }
+    fun onNationTownLeave(event: NationTownLeaveEvent) { resetNationCache(); resetTownCache() }
     @EventHandler
-    fun onNationAcceptAllyRequest(event: NationAcceptAllyRequestEvent) = resetNationCache()
+    fun onNationAcceptAllyRequest(event: NationAcceptAllyRequestEvent) { resetNationCache() }
     @EventHandler
-    fun onNationDenyAllyRequest(event: NationDenyAllyRequestEvent) = resetNationCache()
+    fun onNationDenyAllyRequest(event: NationDenyAllyRequestEvent) { resetNationCache() }
     @EventHandler
-    fun onNationAddEnemy(event: NationAddEnemyEvent) = resetNationCache()
+    fun onNationAddEnemy(event: NationAddEnemyEvent) { resetNationCache() }
     @EventHandler
-    fun onNationRemoveEnemy(event: NationRemoveEnemyEvent) = resetNationCache()
+    fun onNationRemoveEnemy(event: NationRemoveEnemyEvent) { resetNationCache() }
     @EventHandler
-    fun onNationRemoveAlly(event: NationRemoveAllyEvent) = resetNationCache()
+    fun onNationRemoveAlly(event: NationRemoveAllyEvent) { resetNationCache() }
     @EventHandler
-    fun onNationRemoveTown(event: NationRemoveTownEvent) = run { resetNationCache(); resetTownCache() }
+    fun onNationRemoveTown(event: NationRemoveTownEvent) { resetNationCache(); resetTownCache() }
 
+
+    val cacheTaskScope = CoroutineScope(Dispatchers.Default + CoroutineName("TownyExternal-CacheTask"))
 
     fun resetAllCaches() {
         resetTownCache()
@@ -143,7 +149,7 @@ class EventListener : Listener {
     }
 
     fun resetTownCache() {
-        thread(name = "TownyExternalTownCacheClear") {
+        cacheTaskScope.launch {
             val towns = TownService.getTowns()
             for (town in towns) {
                 CacheService.clear("town_${town.uuid}")
@@ -152,7 +158,7 @@ class EventListener : Listener {
     }
 
     fun resetNationCache() {
-        thread(name = "TownyExternalNationCacheClear") {
+        cacheTaskScope.launch {
             val nations = NationService.getNations()
             for (nation in nations) {
                 CacheService.clear("nation_${nation.uuid}")

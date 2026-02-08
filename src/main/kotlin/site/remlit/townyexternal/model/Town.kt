@@ -33,7 +33,7 @@ data class Town(
                 town.founder,
                 try { Nation.mini(town.nation) } catch (e: NotRegisteredException) { null },
 
-                Coord(town.spawn.x, town.spawn.y, town.spawn.z),
+                Coord(town.spawn.x, town.spawn.y, town.spawn.z, town.spawn.world.name),
                 TownBlock.mini(town.homeBlock),
 
                 town.isOpen,

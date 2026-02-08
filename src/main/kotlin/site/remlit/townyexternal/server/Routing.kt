@@ -1,4 +1,4 @@
-package site.remlit.townyexternal
+package site.remlit.townyexternal.server
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -6,6 +6,7 @@ import io.ktor.server.routing.*
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.util.getOrFail
+import site.remlit.townyexternal.TownyExternal
 import site.remlit.townyexternal.model.ApiException
 import site.remlit.townyexternal.service.NationService
 import site.remlit.townyexternal.service.TownService
@@ -22,8 +23,7 @@ fun Application.configureRouting() {
 
         get("/api/town/{id}") {
             val town = TownService.getTown(call.parameters.getOrFail("id"))
-            if (town == null)
-                throw ApiException(HttpStatusCode.NotFound)
+                ?: throw ApiException(HttpStatusCode.NotFound)
 
             call.respond(town)
         }
@@ -38,8 +38,7 @@ fun Application.configureRouting() {
 
         get("/api/nation/{id}") {
             val nation = NationService.getNation(call.parameters.getOrFail("id"))
-            if (nation == null)
-                throw ApiException(HttpStatusCode.NotFound)
+                ?: throw ApiException(HttpStatusCode.NotFound)
 
             call.respond(nation)
         }
@@ -50,6 +49,13 @@ fun Application.configureRouting() {
 
         get("/api/resident/{id}") {
             throw ApiException(HttpStatusCode.NotImplemented)
+        }
+
+        get("/") {
+            call.respondText {
+                "TownyExternal v${TownyExternal.instance.pluginMeta.version}\n" +
+                        "See /api/towns for towns, /api/nations for nations, /api/residents for residents"
+            }
         }
     }
 }

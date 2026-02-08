@@ -77,6 +77,7 @@ class CacheService {
                     ready = true
                 }
             }
+
             TownyExternal.instance.logger.info("Initialized cache database")
         }
 

@@ -16,7 +16,7 @@ class NationService {
             for (nation in towny.nations) {
                 val value = Nation.fromTowny(nation)
                 nations.add(value)
-                CacheService.set("nation_${nation.uuid}", Json.encodeToString(Nation.serializer(), value))
+                CacheService.set("nation_${nation.uuid}", Json.encodeToString(value))
                 uuids.add(nation.uuid.toString())
             }
 
@@ -28,7 +28,7 @@ class NationService {
         fun getNationFresh(uuid: String): Nation? {
             val nation = towny.getNation(UUID.fromString(uuid)) ?: return null
             val value = Nation.fromTowny(nation)
-            CacheService.set("nation_${nation.uuid}", Json.encodeToString(Nation.serializer(), value))
+            CacheService.set("nation_${nation.uuid}", Json.encodeToString(value))
             return value
         }
 

@@ -7,4 +7,5 @@ data class Coord(
     val x: Double,
     val y: Double,
     val z: Double,
+    val world: String
 )

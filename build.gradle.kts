@@ -9,20 +9,8 @@ group = "site.remlit"
 version = "2026.2.1"
 
 repositories {
+    maven("https://repo.remlit.site/mirror")
     mavenCentral()
-
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        name = "papermc"
-    }
-    maven("https://oss.sonatype.org/content/groups/public/") {
-        name = "sonatype"
-    }
-    maven("https://repo.glaremasters.me/repository/towny/") {
-        name = "glaremasters-repo"
-    }
-    maven("https://repo.aikar.co/content/groups/aikar/") {
-        name = "aikar-repo"
-    }
 }
 
 dependencies {

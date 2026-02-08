@@ -6,6 +6,10 @@ Caching can also be configured to reduce unnecessary calls to the Towny API and 
 
 By default, the server listens to `127.0.0.1:8064`, but that can be configured.
 
+## Why?
+
+So you can make cool things like this: https://orchidmc.org/#towns
+
 ## Endpoints
 
 - `/api/towns` fetches a list of all towns

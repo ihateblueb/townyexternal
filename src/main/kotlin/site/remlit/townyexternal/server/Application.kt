@@ -1,4 +1,4 @@
-package site.remlit.townyexternal
+package site.remlit.townyexternal.server
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
@@ -10,6 +10,7 @@ import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 import kotlinx.serialization.json.Json
+import site.remlit.townyexternal.TownyExternal
 import site.remlit.townyexternal.model.ApiError
 import site.remlit.townyexternal.model.ApiException
 

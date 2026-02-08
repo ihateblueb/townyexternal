@@ -21,7 +21,7 @@ data class TownBlock(
                 Town.fromTowny(townBlock.town),
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                ChunkCoord(townBlock.coord.x, townBlock.coord.z),
+                ChunkCoord(townBlock.coord.x, townBlock.coord.z, townBlock.world.name),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,
@@ -43,7 +43,7 @@ data class TownBlock(
             return MiniTownBlock(
                 try { Resident.mini(townBlock.resident) } catch (e: Exception) { null },
                 TownBlockType.fromTowny(townBlock.type),
-                ChunkCoord(townBlock.coord.x, townBlock.coord.z),
+                ChunkCoord(townBlock.coord.x, townBlock.coord.z, townBlock.world.name),
                 townBlock.plotPrice,
                 townBlock.isOutpost,
                 townBlock.claimedAt,
