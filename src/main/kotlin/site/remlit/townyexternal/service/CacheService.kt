@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import redis.clients.jedis.JedisPool
 import site.remlit.townyexternal.TownyExternal
+import site.remlit.townyexternal.event.ResetCacheEvent
 import site.remlit.townyexternal.model.CacheMode
 import java.sql.Connection
 import java.sql.SQLException
@@ -77,6 +78,13 @@ class CacheService {
                     ready = true
                 }
             }
+
+            if (get("last_version") != TownyExternal.instance.pluginMeta.version) {
+                TownyExternal.instance.logger.info("Last version mismatch, clearing cache")
+                ResetCacheEvent().callEvent()
+            }
+
+            set("last_version", TownyExternal.instance.pluginMeta.version)
 
             TownyExternal.instance.logger.info("Initialized cache database")
         }

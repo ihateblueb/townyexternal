@@ -47,6 +47,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import site.remlit.townyexternal.event.ResetCacheEvent
 import site.remlit.townyexternal.service.CacheService
 import site.remlit.townyexternal.service.NationService
 import site.remlit.townyexternal.service.TownService
@@ -54,6 +55,9 @@ import kotlin.concurrent.thread
 
 @Suppress("unused")
 class EventListener : Listener {
+    @EventHandler
+    fun onResetCache(event: ResetCacheEvent) { resetAllCaches() }
+
     @EventHandler
     fun onNewDay(event: NewDayEvent) { resetAllCaches() }
 

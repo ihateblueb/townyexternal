@@ -36,12 +36,11 @@ class TownyExternal : JavaPlugin() {
 
         CacheService.init()
 
-        httpServer = thread(name = "TownyExternalMain") { main() }
+        httpServer = thread(name = "TownyExternal-Main") { main() }
         httpServerInitialized = true
     }
 
-    override fun onDisable() {
-    }
+    override fun onDisable() {}
 
     companion object {
         lateinit var instance: JavaPlugin
