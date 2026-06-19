@@ -1,6 +1,7 @@
 package site.remlit.townyexternal.model
 
 import kotlinx.serialization.Serializable
+import com.palmergames.bukkit.towny.`object`.Nation as TownyNation
 
 @Serializable
 data class Nation(
@@ -10,33 +11,22 @@ data class Nation(
 
     val capitol: MiniTown,
 
-    val allies: List<Nation>,
-    val enemies: List<Nation>,
-
+    val allies: List<MiniNation>,
+    val enemies: List<MiniNation>,
 ) {
     companion object {
-        fun fromTowny(nation: com.palmergames.bukkit.towny.`object`.Nation): Nation {
-            val allies = mutableListOf<Nation>()
-            nation.allies.forEach {
-                allies.add(fromTowny(it))
-            }
-
-            val enemies = mutableListOf<Nation>()
-            nation.enemies.forEach {
-                enemies.add(fromTowny(it))
-            }
-
+        fun fromTowny(nation: TownyNation): Nation {
             return Nation(
                 nation.uuid.toString(),
                 nation.name,
                 Resident.mini(nation.king),
                 Town.mini(nation.capital),
-                allies,
-                enemies
+                nation.allies.map { mini(it) },
+                nation.enemies.map { mini(it) }
             )
         }
 
-        fun mini(nation: com.palmergames.bukkit.towny.`object`.Nation): MiniNation {
+        fun mini(nation: TownyNation): MiniNation {
             return MiniNation(
                 nation.uuid.toString(),
                 nation.name,

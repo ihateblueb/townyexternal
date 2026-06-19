@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "site.remlit"
-version = "2026.5.0"
+version = "2026.6.0"
 
 repositories {
     mavenCentral()
